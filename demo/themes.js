@@ -10,9 +10,11 @@ const lightGreen = '#09FFC3'
 const lightGreenHover = '#A1FFE8'
 const greyEB = '#EBEBEB'
 const grey8D = '#8D8D8D'
+const greyD8 = '#D8D8D8'
 const grey31 = '#313136'
 const grey33 = '#333333'
 const greyBB = '#BBBBBB'
+const grey5E = '#5E5E5E'
 const white = '#ffffff'
 const dark18 = '#181920'
 const dark1d = '#1d1d26'
@@ -34,7 +36,7 @@ const lightTheme = {
   '--h6': '1.6rem',
   '--body-color': grey33,
   '--body-background': greyEB,
-  '--wrapper-padding': '0 30px',
+  '--wrapper-padding': '0px',
   '--button-default': lightGreen,
   '--button-default-hover': white,
   '--button-default-font-size': '1.8rem',
@@ -50,18 +52,14 @@ const lightTheme = {
   '--card-cover': greyEB,
   '--card-hover-cover': lightGreen,
   '--card-cover-border': transparent,
-  '--card-cover-radius': '0 0 6px 6px',
-  '--card--hover-cover-radius': '6px',
+  '--card-cover-radius': '0 0 4px 4px',
+  '--card--hover-cover-radius': '4px',
   '--card-border': transparent,
   '--card-hover-border': '0px solid var(--card-border)',
   '--card-code-overlay': 'linear-gradient(0deg, rgba(0,0,0, .1) 0%, rgba(0,0,0, .28) 100%)',
   '--card-shadow': '0px 6px 8px rgba(144, 144, 144, .3)',
   '--card-hover-shadow': '0px 6px 8px rgba(144, 144, 144, .3)',
   '--card-code-text': '1.3rem',
-  '--card-code-text-line-height': '20px',
-  '--card-code-width': 'calc(100% - 40px)',
-  '--card-code-height': 'calc(100% - 30px)',
-  '--card-code-padding': '15px 20px',
   '--card-cover-title': grey31,
   '--card-hover-cover-title': grey31,
   '--card-cover-userInfo': grey33,
@@ -76,8 +74,8 @@ const lightTheme = {
   '--search-input-text': '1.4rem',
   '--search-icon-fill': dark1d,
   '--search-button-color': dark1d,
-  '--search-button-background': white,
-  '--search-button-hover-background': lightGreen,
+  '--search-button-background': 'rgba(9,255,195, 0)',
+  '--search-button-hover-background': 'rgba(9,255,195, 1)',
   '--text-large': '2rem',
   '--text-normal': '1.6rem',
   '--text-small': '1.4rem',
@@ -90,13 +88,24 @@ const lightTheme = {
   '--pages-hover-background': white,
   '--grid-template': '',
   '--icon-new-fill': dark1d,
-  '--pagination-button-icon-fill': dark1d,
+  '--button-icon-fill': dark1d,
   '--collectionArea-grid-gap': '30px',
   '--collectionCard-border-radius': '6px',
   '--pages-li-color': grey8D,
-  '--search-button-border-radius': '30px',
   '--notify-background-color': lightGreen,
-  '--placeholder': grey8D
+  '--placeholder': grey8D,
+  '--search-input-shadow': 'rgba(0, 0, 0, .3)',
+  '--search-input-line-height': '20px',
+  '--header-background': greyD8,
+  '--button-sticker': white,
+  '--button-sticker-hover': lightGreen,
+  '--number-border': 'none',
+  '--number-background' : white,
+  '--number-color': grey31,
+  '--switch-current-border-color': 'orange',
+  '--footer-icon-fill': grey31,
+  '--footer-nav-background': white,
+  '--footer-copy-rights': grey8D
 }
 
 const darkTheme = {
@@ -110,7 +119,7 @@ const darkTheme = {
   '--h6': '1.6rem',
   '--body-color': white,
   '--body-background': dark18,
-  '--wrapper-padding': '0 30px',
+  '--wrapper-padding': '0px',
   '--button-default': transparent,
   '--button-default-hover': bluePurple,
   '--button-default-font-size': '1.8rem',
@@ -124,10 +133,8 @@ const darkTheme = {
   '--button-box-shadow': '0 1px 8px rgba(255,41,117, .3)',
   '--editor-preview': dark1d,
   '--card-cover': grey31,
-  '--card-hover-cover': bluePurple,
+  '--card-hover-cover': 'bluePurple',
   '--card-cover-border': transparent,
-  '--card-cover-radius': '0 0 6px 6px',
-  '--card-hover-cover-radius': '6px',
   '--card-border': bluePurple,
   '--card-hover-border': '1px solid var(--card-border)',
   '--card-code-overlay': 'linear-gradient(0deg, rgba(103,0,255, .1) 0%, rgba(103,0,255, .28) 100%)',
@@ -135,9 +142,6 @@ const darkTheme = {
   '--card-hover-shadow': '0px 2px 30px rgba(103, 0, 255, .6)',
   '--card-code-text': '1.3rem',
   '--card-code-text-line-height': '20px',
-  '--card-code-width': 'calc(100% - 40px)',
-  '--card-code-height': 'calc(100% - 30px)',
-  '--card-code-padding': '15px 20px',
   '--card-cover-title': lightGreen,
   '--card-hover-cover-title': white,
   '--card-cover-userInfo': white,
@@ -147,13 +151,13 @@ const darkTheme = {
   '--card-icon-fill': white,
   '--search-input': `1px solid var(--search-input-border)`,
   '--search-input-border': bluePurple,
-  '--search-input-background': 'none',
+  '--search-input-background': dark1d,
   '--search-input-color': lightGreen,
   '--search-input-text': '1.4rem',
   '--search-icon-fill': lightGreen,
   '--search-button-color': white,
-  '--search-button-background': white,
-  '--search-button-hover-background': bluePurple,
+  '--search-button-background': 'rgba(103, 0, 255, 0)',
+  '--search-button-hover-background': 'rgba(103, 0, 255, 1)',
   '--text-large': '2rem',
   '--text-normal': '1.6rem',
   '--text-small': '1.4rem',
@@ -166,12 +170,23 @@ const darkTheme = {
   '--pages-hover-background': bluePurple,
   '--grid-template': '',
   '--icon-new-fill': white,
-  '--pagination-button-icon-fill': peach,
+  '--button-icon-fill': white,
   '--collectionArea-grid-gap': '30px',
   '--collectionCard-border-radius': '6px',
-  '--search-button-border-radius': '30px',
   '--notify-background-color': lightGreen,
-  '--placeholder': grey8D
+  '--placeholder': grey8D,
+  '--search-input-shadow': 'none',
+  '--search-input-line-height': '20px',
+  '--header-background': dark1d,
+  '--button-sticker': '#3B0093',
+  '--button-sticker-hover': bluePurple,
+  '--number-border': `1px solid ${bluePurple}`,
+  '--number-background' : transparent,
+  '--number-color': white,
+  '--switch-current-border-color': 'orange',
+  '--footer-icon-fill': lightGreen,
+  '--footer-nav-background': dark1d,
+  '--footer-copy-rights': grey8D
 }
 const themes = { lightTheme, darkTheme }
 select.names = Object.keys(themes)
