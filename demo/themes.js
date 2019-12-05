@@ -20,6 +20,7 @@ const dark18 = '#181920'
 const dark1d = '#1d1d26'
 const peach = 'rgba(255, 41,117, 100)'
 const transparent = 'rgba(0,0,0,0)'
+const black = '#000'
 
 // define font
 const fontNunito = `'Nunito', sans-serif`
@@ -36,7 +37,6 @@ const lightTheme = {
   '--h6': '1.6rem',
   '--body-color': grey33,
   '--body-background': greyEB,
-  '--wrapper-padding': '0px',
   '--button-default': lightGreen,
   '--button-default-hover': white,
   '--button-default-font-size': '1.8rem',
@@ -69,7 +69,7 @@ const lightTheme = {
   '--card-icon-fill': dark1d,
   '--search-input': `1px solid var(--search-input-border)`,
   '--search-input-border': 'rgba(255,255,255, 0)',
-  '--search-input-background': white,
+  '--search-input-background': '#F3F7FD',
   '--search-input-color': grey8D,
   '--search-input-text': '1.4rem',
   '--search-icon-fill': dark1d,
@@ -96,16 +96,28 @@ const lightTheme = {
   '--placeholder': grey8D,
   '--search-input-shadow': 'rgba(0, 0, 0, .3)',
   '--search-input-line-height': '20px',
-  '--header-background': greyD8,
+  '--header-background': white,
   '--button-sticker': white,
   '--button-sticker-hover': lightGreen,
   '--number-border': 'none',
-  '--number-background' : white,
+  '--number-background' : '#F3F7FD',
   '--number-color': grey31,
   '--switch-current-border-color': 'orange',
   '--footer-icon-fill': grey31,
+  '--footer-icon-hover-fill': lightGreen,
   '--footer-nav-background': white,
-  '--footer-copy-rights': grey8D
+  '--footer-copy-rights': grey8D,
+  '--filters-a-hover': lightGreen,
+  '--filters-border-color': lightGreen,
+  '--themeSwitch-background': 'rgba(0,0,0, .1)',
+  '--tab-color': grey8D,
+  '--tab-background': greyD8,
+  '--tab-hover-background': lightGreen,
+  '--tab-border-color': transparent,
+  '--tab-active-color': black,
+  '--tab-active-background': lightGreen,
+  '--tab-active-border-color': transparent,
+  '--tab-active-box-shadow': 'rgba(144,144,144, .3)'
 }
 
 const darkTheme = {
@@ -119,7 +131,6 @@ const darkTheme = {
   '--h6': '1.6rem',
   '--body-color': white,
   '--body-background': dark18,
-  '--wrapper-padding': '0px',
   '--button-default': transparent,
   '--button-default-hover': bluePurple,
   '--button-default-font-size': '1.8rem',
@@ -185,8 +196,20 @@ const darkTheme = {
   '--number-color': white,
   '--switch-current-border-color': 'orange',
   '--footer-icon-fill': lightGreen,
+  '--footer-icon-hover-fill': white,
   '--footer-nav-background': dark1d,
-  '--footer-copy-rights': grey8D
+  '--footer-copy-rights': grey8D,
+  '--filters-a-hover': lightGreen,
+  '--filters-border-color': bluePurple,
+  '--themeSwitch-background': 'rgba(255,255,255, .9)',
+  '--tab-color': '#65656B',
+  '--tab-background': '#1D1D26',
+  '--tab-hover-background': bluePurple,
+  '--tab-border-color': '#2F2B36',
+  '--tab-active-color': white,
+  '--tab-active-background': bluePurple,
+  '--tab-active-border-color': bluePurple,
+  '--tab-active-box-shadow': 'rgba(103,0,255, .3)'
 }
 const themes = { lightTheme, darkTheme }
 select.names = Object.keys(themes)

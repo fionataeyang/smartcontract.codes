@@ -198,6 +198,7 @@ const dark18 = '#181920'
 const dark1d = '#1d1d26'
 const peach = 'rgba(255, 41,117, 100)'
 const transparent = 'rgba(0,0,0,0)'
+const black = '#000'
 
 // define font
 const fontNunito = `'Nunito', sans-serif`
@@ -214,7 +215,6 @@ const lightTheme = {
   '--h6': '1.6rem',
   '--body-color': grey33,
   '--body-background': greyEB,
-  '--wrapper-padding': '0px',
   '--button-default': lightGreen,
   '--button-default-hover': white,
   '--button-default-font-size': '1.8rem',
@@ -247,7 +247,7 @@ const lightTheme = {
   '--card-icon-fill': dark1d,
   '--search-input': `1px solid var(--search-input-border)`,
   '--search-input-border': 'rgba(255,255,255, 0)',
-  '--search-input-background': white,
+  '--search-input-background': '#F3F7FD',
   '--search-input-color': grey8D,
   '--search-input-text': '1.4rem',
   '--search-icon-fill': dark1d,
@@ -274,16 +274,28 @@ const lightTheme = {
   '--placeholder': grey8D,
   '--search-input-shadow': 'rgba(0, 0, 0, .3)',
   '--search-input-line-height': '20px',
-  '--header-background': greyD8,
+  '--header-background': white,
   '--button-sticker': white,
   '--button-sticker-hover': lightGreen,
   '--number-border': 'none',
-  '--number-background' : white,
+  '--number-background' : '#F3F7FD',
   '--number-color': grey31,
   '--switch-current-border-color': 'orange',
   '--footer-icon-fill': grey31,
+  '--footer-icon-hover-fill': lightGreen,
   '--footer-nav-background': white,
-  '--footer-copy-rights': grey8D
+  '--footer-copy-rights': grey8D,
+  '--filters-a-hover': lightGreen,
+  '--filters-border-color': lightGreen,
+  '--themeSwitch-background': 'rgba(0,0,0, .1)',
+  '--tab-color': grey8D,
+  '--tab-background': greyD8,
+  '--tab-hover-background': lightGreen,
+  '--tab-border-color': transparent,
+  '--tab-active-color': black,
+  '--tab-active-background': lightGreen,
+  '--tab-active-border-color': transparent,
+  '--tab-active-box-shadow': 'rgba(144,144,144, .3)'
 }
 
 const darkTheme = {
@@ -297,7 +309,6 @@ const darkTheme = {
   '--h6': '1.6rem',
   '--body-color': white,
   '--body-background': dark18,
-  '--wrapper-padding': '0px',
   '--button-default': transparent,
   '--button-default-hover': bluePurple,
   '--button-default-font-size': '1.8rem',
@@ -363,8 +374,20 @@ const darkTheme = {
   '--number-color': white,
   '--switch-current-border-color': 'orange',
   '--footer-icon-fill': lightGreen,
+  '--footer-icon-hover-fill': white,
   '--footer-nav-background': dark1d,
-  '--footer-copy-rights': grey8D
+  '--footer-copy-rights': grey8D,
+  '--filters-a-hover': lightGreen,
+  '--filters-border-color': bluePurple,
+  '--themeSwitch-background': 'rgba(255,255,255, .9)',
+  '--tab-color': '#65656B',
+  '--tab-background': '#1D1D26',
+  '--tab-hover-background': bluePurple,
+  '--tab-border-color': '#2F2B36',
+  '--tab-active-color': white,
+  '--tab-active-background': bluePurple,
+  '--tab-active-border-color': bluePurple,
+  '--tab-active-box-shadow': 'rgba(103,0,255, .3)'
 }
 const themes = { lightTheme, darkTheme }
 select.names = Object.keys(themes)
@@ -45584,6 +45607,8 @@ const css = csjs`
 @import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
 html {
   font-size: 62.5%;
+  height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   height: 100%;
@@ -45668,7 +45693,13 @@ ul, li {
 svg {
   width: 100%;
   height: 100%;
-}`
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+`
 
 },{"csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","makePage":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makePage.js","setTheme":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/setTheme.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/avatar.js":[function(require,module,exports){
 const parser = document.createElement('div')
@@ -45751,12 +45782,14 @@ function footer() {
         <a class="${css.button} ${css.link}" href="https://github.com/ethereum-play/smartcontract.codes" target="_blank">
             <span class="${css.icon} ${css['icon-github']}">${icon('twitter', svg.github)}</span>
         </a>
-        <a class="${css.button} ${css.link}" href="https://gitter.im/ethereum/play?utm_source=share-link&utm_medium=link&utm_campaign=share-link" target="_blank">
+        <a class="${css.button} ${css.link}" href="https://gitter.im/playproject-io/community" target="_blank">
             <span class="${css.icon} ${css['icon-gitter']}">${icon('twitter', svg.gitter)}</span>
         </a>
     </nav>`
     const el = bel`<footer class=${css.footer}>${nav}</footer>`
     return el
+
+    
 }
 
 const css = csjs`
@@ -45764,6 +45797,7 @@ const css = csjs`
     grid-area: footer;
     display: grid;
     justify-content: center;
+    height: 44px;
 }
 .bottom-nav {
     display: grid;
@@ -45795,7 +45829,11 @@ const css = csjs`
     width: 100%;
 }
 .icon svg g {
-    fill: var(--footer-icon-fill)
+    fill: var(--footer-icon-fill);
+    transition: fill .5s ease-in-out;
+}
+.icon:hover svg g {
+    fill: var(--footer-icon-hover-fill)
 }
 .icon-gitter {}
 .icon-github {}
@@ -45827,13 +45865,6 @@ function openNew () {
 }
 
 const css = csjs`
-.button {
-    font-size: var(--button-default-font-size);
-    vertical-align: middle;
-    width: 44px;
-    height: 44px;
-    transition: background-color .3s ease-in-out;
-}
 .footerSticker {
     position: fixed;
     right: 16px;
@@ -45841,6 +45872,8 @@ const css = csjs`
     z-index: 9999;
 }
 .newContract {
+    width: 44px;
+    height: 44px;
     background-color: var(--button-sticker);
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
@@ -45852,10 +45885,8 @@ const css = csjs`
 .newContract:hover {
     background-color: var(--button-sticker-hover);
 }
-.newContract span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.icon-new {
+    display: block;
 }
 .icon-new svg g {
     fill: var(--icon-new-fill);
@@ -45864,6 +45895,7 @@ const css = csjs`
     -moz-transition: fill .3s ease-in-out;
     -o-transition: fill .3s ease-in-out;
 }
+
 `
 },{"./svg.json":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/svg.json","bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","icon":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/icon.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/getCurrentPage.js":[function(require,module,exports){
 module.exports = getCurrentPage
@@ -45881,21 +45913,12 @@ const search = require('search')
 const makeCollectionArea = require('makeCollectionArea')
 const themeSwitcher = require('themeSwitcher')
 const getCurrentPage = require('getCurrentPage')
-
 module.exports = header
 
 function header (db, notify) {
   let activeSession
 
-  const filters = bel`
-  <ul class=${css.filters} onclick=${(e) => focus(e, filters)}>
-    <li><a href="#" class=${css.current}">Source Codes</a></li>
-    <li><a href="#">Address</a></li>
-    <li><a href="#">Titles</a></li>
-    <li><a href="#">Populars</a></li>
-    <li><a href="#">Audited</a></li>
-    <li><a href="#">Beginner</a></li>
-  </ul>`
+  
   return bel`<header class="${css.header}">
     <div class="${css.logo}" onclick=${home}>
       <img src="src/assets/images/logo-1.png" alt="smartcontract.codes">
@@ -45940,11 +45963,7 @@ function header (db, notify) {
         </span>
       </button>
     </nav>
-    
-    <nav class=${css["top-nav"]}>${filters}</nav>
   </header>`
-
-  
 }
 function home () {
   location.href = `${window.location.origin}${window.location.pathname}`
@@ -45955,27 +45974,12 @@ function menuOpen() {
   const nav = document.querySelector(`.${css.nav}`)
   nav.style.display = 'block'
 }
-function focus(e, filters) {
-  const el = e.target
-  if (el.classList.contains(css.current)) return
-  if (el.parentNode.nodeName === "LI") {
-    let filter = el
-    let links = filter.parentNode.parentNode.querySelectorAll('a')
-    links.forEach( link => {
-      if (link.classList.contains(css.current))
-        link.classList.remove(css.current)      
-    })
-    filter.classList.add(css.current)
-  }
-   
-}
 const css = csjs`
 .header {
-  grid-area: header;
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 62px 1fr auto;
-  padding: 8px 12px;
+  padding: 10px 12px;
   background-color: var(--header-background);
   position: fixed;
   top: 0;
@@ -46072,30 +46076,10 @@ const css = csjs`
 .icon-hamburger {
 
 }
-.top-nav {
-  grid-row-start: 2;
-  grid-row-end: 2;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  padding-left: 45px;
-}
-.filters {
-  display: flex;
-}
-.filters li {
-  margin: 0 20px;
-}
-.filters li a {
-  font-size: 14px;
-  padding: 8px 0px;
-}
-.current {
-  border-bottom: 2px solid #6700FF;
-}
 @media (max-width: 960px) {
   .header {
     grid-template-columns: 62px 1fr auto;
-    padding: 8px 2% 14px 2%;
+    padding: 10px 2% 14px 2%;
     width: calc(100% - 4%);
   }
 }
@@ -46106,13 +46090,6 @@ const css = csjs`
   .hamburger {
     display: none;
     align-self: center;
-  }
-
-  .filters li { 
-    margin: 0 2%;
-  }
-  .filters li a {
-    font-size: 12px;
   }
 }
 `
@@ -46140,7 +46117,8 @@ function loadingInProgress () {
 
 const css = csjs`
   .loading{
-    height: calc(100vh - 184px);
+    position: relative;
+    height: calc(100vh - 220px);
   }
   .loading:before,
   .loading:after,
@@ -46344,7 +46322,7 @@ const css = csjs`
   .collectionArea {
     display: grid;
     grid-gap: var(--collectionArea-grid-gap);
-    margin-bottom: 60px;
+    padding-bottom: 60px;
   }
   @media (max-width: 767px) {
     .collectionArea {
@@ -46391,7 +46369,6 @@ const css = csjs`
 },{"bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","makeCard":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makeCard.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makePage.js":[function(require,module,exports){
 const bel = require('bel')
 const csjs = require('csjs-inject')
-
 const header = require('header')
 const search = require('search')
 const loading = require('loading')()
@@ -46405,6 +46382,7 @@ const Idbkv = require('idb-kv')
 const store = new Idbkv('example-store')
 const footerSticker = require('footerSticker')()
 const footer = require('footer')()
+const searchGuide = require('searchGuide')
 
 module.exports = makePage
 
@@ -46414,15 +46392,20 @@ function makePage (data, notify) {
   const status = bel`<div></div>`
   const collectionContainer = bel`<div class=${css.container}></div>`
   const navigation = bel`<div></div>`
+  
+  const viewport = bel`<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+  document.head.appendChild(viewport)
+
   const element = bel`
   <div class=${css.wrapper}>
       ${header(db, notify)}
       <div class=${css.content}>
+        ${searchGuide()}
         ${status}
         ${collectionContainer}
         ${navigation}
-        ${footerSticker}
       </div>
+      ${footerSticker}
       ${footer}
   </div>`
   db.getPage(getCurrentPage(), (err, chunkedArr) => {
@@ -46583,14 +46566,6 @@ function makePage (data, notify) {
 
 const css = csjs`
   .wrapper {
-    display: grid;
-    grid-template-areas:
-      "header"
-      "content"
-      "footer";
-    grid-template-rows: auto auto 44px;
-    grid-template-columns: 100%;
-    padding: var(--wrapper-padding);
     height: 100%;
   }
   .status {
@@ -46603,15 +46578,8 @@ const css = csjs`
     font-weight: 200;
   }
   .content {
-    grid-area: content;
-    display: grid;
-    grid-template-areas:
-      "themeSwitch"
-      "search"
-      "collection"
-      "pagination";
-    padding: 140px 30px 0 30px;
-    height: calc(100% - 140px);
+    padding: 88px 30px 0 30px;
+    min-height: calc(100% - 134px);
   }
   .container {
     position: relative;
@@ -46621,10 +46589,13 @@ const css = csjs`
     .wrapper {
       padding: 0 20px;
     }
+    .content {
+      padding: 88px 0 0 0;
+    }
   }
 `
 
-},{"bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","footer":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/footer.js","footerSticker":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/footerSticker.js","getCurrentPage":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/getCurrentPage.js","header":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/header.js","idb-kv":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/idb-kv/index.js","loading":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/loading.js","makeCard":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makeCard.js","makeCollectionArea":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makeCollectionArea.js","notification":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/notification.js","pagination":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/pagination.js","progressbar":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/progressbar.js","search":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/search.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/notification.js":[function(require,module,exports){
+},{"bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","footer":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/footer.js","footerSticker":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/footerSticker.js","getCurrentPage":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/getCurrentPage.js","header":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/header.js","idb-kv":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/idb-kv/index.js","loading":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/loading.js","makeCard":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makeCard.js","makeCollectionArea":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/makeCollectionArea.js","notification":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/notification.js","pagination":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/pagination.js","progressbar":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/progressbar.js","search":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/search.js","searchGuide":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/searchGuide.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/notification.js":[function(require,module,exports){
 const bel = require('bel')
 const csjs = require('csjs-inject')
 
@@ -46760,6 +46731,7 @@ function pagination ({ count }, notify) {
 }
 const css = csjs`
   .pagination {
+    display: none;
     grid-area: pagination;
     text-align: center;
     padding-bottom: 40px;
@@ -46835,15 +46807,14 @@ const css = csjs`
     background: var(--pages-current-background);
     color: var(--pages-text-active);
   }
-
-  @media (max-width: 560px) {
-    .pages {
-      display: none;
-    }
+  @media (max-width: 768px) {
     .pagination {
       display: grid;
       grid-template-columns: 1fr 1fr;
       justify-content: space-between;
+    }
+    .pages {
+      display: none;
     }
     .previous {
       justify-self: start;
@@ -46893,9 +46864,10 @@ function search (notify) {
     placeholder='Enter a keyword, contract name or code snippet'
     class=${css.textarea}"
     onclick=${(e) => select(e)}
-    onkeyup=${(e) => trigger(e, notify)}
+    onkeyup=${(e) => trigger(e)}
     onpaste=${(e) => paste(e)}
     onkeydown=${(e) => down(e)}
+    onkeypress=${(e) => preventDefault(e)}>
     >
   </div>`
 
@@ -46951,26 +46923,12 @@ function search (notify) {
   }
 
   function trigger (e, ops) {
+    const keyCode = e.keyCode
     searchContent = searchArea.innerHTML
     shortInfo = searchArea.innerText.split('\n').shift()
     document.execCommand("defaultParagraphSeparator", false, "br")
-  }
-  function paste(event) {
-    let paste = (event.clipboardData || window.clipboardData).getData('text')
-    const selection = window.getSelection()
-    if (!selection.rangeCount) return false
-    selection.deleteFromDocument()
-    selection.getRangeAt(0).insertNode(document.createTextNode(paste))
-    event.preventDefault()
-    trigger()
-  }
-  function down(e) {
-    const keyCode = e.which || e.keyCode
-    // tab
-    if (keyCode === 9) {
-      e.preventDefault()
-      document.execCommand('insertHTML', false, '&#009')
-    }
+    if (keyCode === 13 && !e.shiftKey) return searchContracts(searchArea, notify)
+    // if (keyCode === 27) return clearSearch()
     // esc
     if (keyCode === 27) {
       isExpanded = false
@@ -46999,6 +46957,23 @@ function search (notify) {
       } else {
           searchArea.setAttribute('placeholder', '')
       }
+    }
+  }
+  function paste(event) {
+    let paste = (event.clipboardData || window.clipboardData).getData('text')
+    const selection = window.getSelection()
+    if (!selection.rangeCount) return false
+    selection.deleteFromDocument()
+    selection.getRangeAt(0).insertNode(document.createTextNode(paste))
+    event.preventDefault()
+    trigger()
+  }
+  function down(e) {
+    const keyCode = e.which || e.keyCode
+    // tab
+    if (keyCode === 9) {
+      e.preventDefault()
+      document.execCommand('insertHTML', false, '&#009')
     }
   }
   function removeSelection() {
@@ -47062,7 +47037,6 @@ const css = csjs`
   .submit {
     width: 42px;
     height: 42px;
-    font-size: var(--text-normal);
     background-color: var(--search-button-background);
     cursor: pointer;
     border-radius: 6px;
@@ -47100,6 +47074,9 @@ const css = csjs`
     white-space: pre-wrap;
     outline: none;
     transition: box-shadow .3s, height .5s, max-height .5s ease-in-out;
+  }
+  .icon-search {
+    display: inline-block;
   }
   .icon-search svg g {
     fill: var(--card-icon-fill);
@@ -47144,7 +47121,221 @@ const css = csjs`
   }
 `
 
-},{"./svg.json":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/svg.json","bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","icon":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/icon.js","unfocusElement":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/unfocusElement.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/setTheme.js":[function(require,module,exports){
+},{"./svg.json":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/svg.json","bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","icon":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/icon.js","unfocusElement":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/unfocusElement.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/searchGuide.js":[function(require,module,exports){
+const bel = require('bel')
+const csjs = require('csjs-inject')
+const icon = require('icon')
+const svg = require('./svg.json')
+
+module.exports = searchGuide
+
+function searchGuide() {
+    let filters = [
+        "All", "Basic", "OpenZeppelin", "Audited", "Newest", "Popular", "Featured",
+        "sunt", "aut", "facere", "repellat", "provident", "occaecati", "excepturi", "optio", "reprehenderit",
+    ]
+    let searchFilters =  filters.map( (name, index) => {
+        let el = bel`<li><a href="#" class=${css.tab} onclick=${(e) => toggle(e)}>${name}</a></li>`
+        if ( index === 0 ) {
+            el.firstChild.classList.add(css.active)
+        } 
+        return el
+    })
+    let list = bel`<ul class=${css.filterList}>${searchFilters}</ul>`
+    const arrowLeft = bel`
+                    <button class="${css.button} ${css.circle} ${css['arrow-left']}" onclick=${(e) => prev()}>
+                        <span class=${css['icon-arrow-left']}>${icon('arrow-left', svg.arrowLeft)}</span>
+                    </button>`
+    const arrowRight = bel`
+                    <button class="${css.button} ${css.circle} ${css['arrow-right']}" onclick=${(e) => next()}>
+                        <span class=${css['icon-arrow-right']}>${icon('arrow-left', svg.arrowRight)}</span>
+                    </button>`
+
+    let scrolled = 0
+    window.onload = function() {
+        showRightArrow()
+    }
+
+    window.onresize = function() {
+        showRightArrow() 
+    }
+
+    const tabs = bel`
+    <nav class=${css.searchGuide}>
+      ${arrowLeft}
+      <div class=${css.searchContainer}>
+        ${list}
+      </div>
+      ${arrowRight}
+    </nav>`
+
+    return tabs
+
+    function toggle(e) {
+        e.target.classList.toggle(css.active)
+    }
+    function showRightArrow() {
+        let screen = document.body.clientWidth
+        let listWidth = list.offsetWidth
+        if (listWidth < list.parentNode.clientWidth) {
+            arrowRight.style.display = 'none'
+            arrowLeft.style.display = 'none'
+        } else {
+            arrowRight.style.display = 'block'
+            if (screen <= 480) {
+                arrowRight.style.display = 'none'
+                arrowLeft.style.display = 'none'
+            }
+        }
+    }
+    function prev() { 
+        list.parentNode.scrollLeft -= list.parentNode.clientWidth
+        scrolled -= document.body.clientWidth
+        list.parentNode.scrollLeft = scrolled
+        if (scrolled <= 0) { 
+            arrowLeft.style.display = 'none'
+            scrolled = 0
+        }
+        arrowRight.style.display = 'block'
+
+    }
+    function next() {
+        let maxScrollLeft = list.parentNode.scrollWidth - list.parentNode.clientWidth
+        scrolled += document.body.clientWidth
+        list.parentNode.scrollLeft = scrolled
+        if (scrolled > 0) arrowLeft.style.display = 'block'
+        if (scrolled >= maxScrollLeft) { 
+            arrowRight.style.display = 'none'
+            scrolled = maxScrollLeft
+        }
+    }
+}
+
+const css = csjs`
+.searchGuide {
+    position: relative;
+    display: grid;
+    grid-template: 80px / auto;
+    grid-gap: 10px;
+    align-items: center;
+}
+.searchContainer {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.filterList {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    -webkit-overflow-scrolling: touch;
+}
+.filterList li {
+}
+.tab {
+    display: inline-block;
+    margin-right:12px;
+    padding:8px 34px 9px 34px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--tab-color);
+    background-color: var(--tab-background);
+    border-radius: 18px;
+    border: 1px solid var(--tab-border-color);
+    transform: scale(1);
+    transition: color .3s, background-color .6s, transform .2s ease-in-out;
+    white-space: nowrap;
+}
+.filterList li:lastChild .tab {
+    margin-right: 0;
+}
+.active, .active:hover {
+    color: var(--tab-active-color);
+    background-color: var(--tab-active-background);
+    box-shadow: 0 6px 8px var(--tab-active-box-shadow);
+    transform: scale(1);
+}
+.button {
+    width: 36px;
+    height: 36px;
+    background-color: white;
+}
+.button span {
+    display: inline-block;
+    vertical-align: text-top;
+}
+.button svg {
+    width: 100%;
+}
+.default {
+    padding: 6px;
+    color: var(--button-default-text);
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    transition: background-color .3s ease-in-out;
+    -webkit-transition: background-color .3s ease-in-out;
+    -moz-transition: background-color .3s ease-in-out;
+    -o-transition: background-color .3s ease-in-out;
+}
+.default:hover {
+    background-color: var(--button-default-hover);
+    color:  var(--button-default-text-hover);
+    cursor: pointer;
+}
+.default svg g {
+    fill: var(--button-icon-fill);
+    transition: fill .3s ease-in-out;
+    -webkit-transition: fill .3s ease-in-out;
+    -moz-transition: fill .3s ease-in-out;
+    -o-transition: fill .3s ease-in-out;
+}
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.circle svg g {
+    fill: black;
+    transition: fill .3s ease-in-out;
+    -webkit-transition: fill .3s ease-in-out;
+    -moz-transition: fill .3s ease-in-out;
+    -o-transition: fill .3s ease-in-out;
+}
+.arrow-left {
+    display: none;
+    position: absolute;
+    top: 12px;
+    left: -30px;
+    z-index: 2;
+}
+.arrow-right {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: -30px;
+    z-index: 2;
+}
+.icon-arrow-left, .icon-arrow-right {
+}
+@media (max-width: 768px) {
+    .tab {
+        padding:8px 22px 9px 22px;
+        margin-right: 10px;
+    }
+}
+@media (max-width: 480px) {
+    .searchContainer {
+        overflow: auto;
+    }
+    .button.circle {
+        display: none;
+    }
+}
+`
+},{"./svg.json":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/svg.json","bel":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/bel/browser.js","csjs-inject":"/Users/fannieyeh/prj/play/web/smartcontract.codes/node_modules/csjs-inject/index.js","icon":"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/icon.js"}],"/Users/fannieyeh/prj/play/web/smartcontract.codes/src/node_modules/setTheme.js":[function(require,module,exports){
 module.exports = setTheme
 
 function setTheme (theme) {
@@ -47271,7 +47462,7 @@ const css = csjs`
   grid-gap: 4px;
   padding: 4px 8px 4px 8px;
   border-radius: 30px;
-  background-color: rgba(255,255,255, .9);
+  background-color: var(--themeSwitch-background);
   visibility: hidden;
 }
 .colorplate {

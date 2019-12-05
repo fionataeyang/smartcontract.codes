@@ -16,6 +16,8 @@ const css = csjs`
 @import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
 html {
   font-size: 62.5%;
+  height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   height: 100%;
@@ -100,4 +102,10 @@ ul, li {
 svg {
   width: 100%;
   height: 100%;
-}`
+}
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+`
