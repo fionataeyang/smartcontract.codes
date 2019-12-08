@@ -45926,7 +45926,6 @@ function header (db, notify) {
     ${search(action => {
         if (action.type === 'search') {
           const query = action.body
-          console.log(`Starting search query: ${query}`)
           const searchSession = { query, results: [], cards: 0 }
           if (activeSession) db.cancel(activeSession.id)
           searchSession.id = db.search( (query, action) => {
@@ -46412,7 +46411,7 @@ function makePage (data, notify) {
     if (err) return console.error(err)
     if (!chunkedArr) getList()
     else {
-      console.log(`Retreiving paths from Indexed DB: ${chunkedArr.filepaths}`)
+      // console.log(`Retreiving paths from Indexed DB: ${chunkedArr.filepaths}`)
       if (activeSession) return
       collectionContainer.innerHTML = ''
       collectionContainer.appendChild(loading)
@@ -46420,7 +46419,7 @@ function makePage (data, notify) {
         if (err) return console.error(err)
         const pagination = makePagination({ count }, listenPagination)
         const filepaths = chunkedArr.filepaths
-        console.log(`Searching P2P database for files: ${filepaths}`)
+        // console.log(`Searching P2P database for files: ${filepaths}`)
         db.get(filepaths, (err, contracts) => {
           if (err) return console.error(err)
           if (activeSession) return
@@ -46432,7 +46431,7 @@ function makePage (data, notify) {
   })
 
   function getList () {
-    console.log(`Initializing the P2P database`)
+    // console.log(`Initializing the P2P database`)
     setTimeout(() => {
       notification(`First visit detected. Initializing the P2P database
         will start soon!`)
@@ -46451,7 +46450,7 @@ function makePage (data, notify) {
       if (err) return console.error(err)
       if (activeSession) return
       const count = Math.floor(filePaths.length/cardsCount)
-      console.log(`Creating pagination for ${count} pages`)
+      // console.log(`Creating pagination for ${count} pages`)
       const pagination =
         makePagination({ count }, listenPagination)
       const page = getCurrentPage()
@@ -46493,10 +46492,10 @@ function makePage (data, notify) {
     }
   }
   function listenSearch (session, action) {
-    console.log(`Starting new search session: ${session.id}`)
-    console.log(`Matches found: ${session.results.length}`)
+    // console.log(`Starting new search session: ${session.id}`)
+    // console.log(`Matches found: ${session.results.length}`)
     if (action.type === 'searchResult') {
-      console.log(`New search result: ${action.body}`)
+      // console.log(`New search result: ${action.body}`)
       addMatch(session, action.body)
     }
     if (action.type === 'progress') {
@@ -46523,7 +46522,7 @@ function makePage (data, notify) {
     collectionContainer.appendChild(collectionArea)
   }
   function addMatch (session, filepath) {
-    console.log(`New match at: ${filepath}`)
+    // console.log(`New match at: ${filepath}`)
     if (!session.area) {
       collectionContainer.innerHTML = ''
       session.area = makeCollectionArea([])
@@ -46534,21 +46533,21 @@ function makePage (data, notify) {
     const count = Math.floor(length/cardsCount)
     if (length <= cardsCount) {
       db.get(filepath, (err, contracts) => {
-        console.log(`Appending new card`)
+        // console.log(`Appending new card`)
         session.cards++
         if (err) return console.error(err)
         session.area.appendChild(makeCard(contracts[0]))
       })
     }
     if (session.cards === cardsCount) {
-      console.log(`Creating fresh pagination`)
+      // console.log(`Creating fresh pagination`)
       if (!session.pagination) {
         session.pagination = true
         updatePagination(count)
       }
       if (length % cardsCount === 0) {
         updatePagination(count)
-        console.log(`Updating pagination (total): ${length}`)
+        // console.log(`Updating pagination (total): ${length}`)
       }
     }
   }
@@ -46873,7 +46872,7 @@ function search (notify) {
 
   unfocusElement(x => x === searchArea, (hasFocus) => {
 
-    console.log('[search bar]', hasFocus ? 'click inside' : 'click outside')
+    // console.log('[search bar]', hasFocus ? 'click inside' : 'click outside')
     if (hasFocus) return
     isExpanded = false
     if (searchArea.clientHeight > 40 ) {
@@ -47130,10 +47129,7 @@ const svg = require('./svg.json')
 module.exports = searchGuide
 
 function searchGuide() {
-    let filters = [
-        "All", "Basic", "OpenZeppelin", "Audited", "Newest", "Popular", "Featured",
-        "sunt", "aut", "facere", "repellat", "provident", "occaecati", "excepturi", "optio", "reprehenderit",
-    ]
+    let filters = ["Beginner", "Basic", "OpenZeppelin", "Featured"]
     let searchFilters =  filters.map( (name, index) => {
         let el = bel`<li><a href="#" class=${css.tab} onclick=${(e) => toggle(e)}>${name}</a></li>`
         if ( index === 0 ) {
@@ -47405,7 +47401,7 @@ function themeSwitcher (notify) {
   let themeSwitch = bel`<div class=${css.themeSwitch}>${themes(colors)}</div>`
 
   unfocusElement(x => x === actions, (hasFocus) => {
-    console.log('[theme switch]', hasFocus ? 'click inside' : 'click outside')
+    // console.log('[theme switch]', hasFocus ? 'click inside' : 'click outside')
     if (hasFocus) return
     if (!themeSwitch.classList.contains(css.open)) return
     themeSwitch.classList.add(css.close)
@@ -47435,7 +47431,6 @@ function themeSwitcher (notify) {
     activeColor.classList.remove(css.current)
     activeColor = colorEl
 
-    // console.log('themeSwitch selected', classes)
     cube.firstChild.setAttribute('class', classes.join(' '))
 
     notify(color.body)
